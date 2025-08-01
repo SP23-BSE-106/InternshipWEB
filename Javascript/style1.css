@@ -56,4 +56,8 @@ button:hover {
   font-weight: bold;
   color: #333;
 }
-
+#arrayDisplay {
+  margin-top: 1.5em;
+  font-size: 1.2em;
+  color: #555;
+}

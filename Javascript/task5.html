@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style1.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator </title>
+</head>
+<body>
+<div class="container">
+  <h1>BMI Calculator</h1>
+  <label for="weight">Enter Weight(kg):</label>
+  <input type="number" id="weight" min="0">
+  <br>
+  <label for="height">Enter Height(m):</label>
+  <input type="number" id="height" min="0">
+    <br>
+  <button onclick="convert()">Convert</button>
+  <p id="result"></p>
+</div>
+
+<script>
+  function convert() {
+    let weight = document.getElementById('weight').value;
+    let height = document.getElementById('height').value;
+    // Validate input
+    if (weight <= 0 || height <= 0) {
+      document.getElementById('result').textContent = "Please enter valid weight and height.";
+      return;
+    }
+    // Calculate BMI
+          const bmi = weight / (height * height);
+    // Display the result
+
+    document.getElementById('result').textContent = `Your BMI is ${bmi.toFixed(2)}.`;
+
+    
+  }
+</script>
+
+
+</body>
+</html>

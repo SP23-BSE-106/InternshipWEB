@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style1.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lower to Upper case </title>
+</head>
+<body>
+<div class="container">
+  <h1>Lower to Upper Case</h1>
+  <label for="Input">Enter name (lowercase only):</label>
+  <input type="text" id="Input">
+  <br>
+  <button onclick="convert()">Convert</button>
+  <p id="result"></p>
+</div>
+
+<script>
+  function convert() {
+    let input = document.getElementById('Input').value;
+
+    // Check if input contains only lowercase letters
+    if (input !== input.toLowerCase()) {
+      document.getElementById('result').textContent = "Please enter the name in lowercase letters only.";
+      return;
+    }
+
+    // Convert the first letter to uppercase
+    let converted = input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+
+    // Display the result
+    document.getElementById('result').textContent = `The converted name is ${converted}.`;
+  }
+</script>
+
+
+</body>
+</html>

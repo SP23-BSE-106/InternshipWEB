@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style1.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Array </title>
+</head>
+<body>
+<div class="container">
+  <h1>Random Array</h1>
+  
+  <button onclick="generateArray()">Generate and Pick</button>
+
+  <p id="arrayDisplay"></p>
+  <p id="result"></p>
+</div>
+
+<script>
+  function generateArray() {
+    let array = [];
+    // Generate an array of 10 random numbers between 1 and 100
+    for (let i = 0; i < 10; i++) {
+      array.push(Math.floor(Math.random() * 100) + 1);
+      
+
+    
+  }
+    // Display the generated array
+    document.getElementById('arrayDisplay').textContent = `Generated Array: ${array.join(', ')}`;
+
+    let firstElement = array[0];
+ let lastElement = array[array.length - 1];
+
+    // Display the first and last elements
+    document.getElementById('result').textContent = `First Element: ${firstElement}, Last Element: ${lastElement}`;
+  }
+</script>
+
+
+</body>
+</html>
