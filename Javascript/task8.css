@@ -8,9 +8,9 @@ body {
 .todo-container {
   max-width: 700px;
   margin: 50px auto;
-  background: #64b5d1;
+  background: #293e45;
   padding: 30px;
-  border-radius: 5px;
+  border-radius: 30px;
   text-align: center;
 }
 
@@ -34,7 +34,7 @@ h2 {
 
 button {
   padding: 10px 20px;
-  background-color: #ccc;
+  background-color: #3b556d;
   border: none;
   cursor: pointer;
   font-weight: bold;
