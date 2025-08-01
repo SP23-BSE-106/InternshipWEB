@@ -1,0 +1,120 @@
+.form-container {
+  background-color: #7d2e2e;
+  color: white;
+  
+  flex-wrap: wrap;
+  padding: 40px;
+  max-width: 600px;
+  margin: 20px auto;
+  border-radius: 6px;
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
+  height: 500px;
+}
+.logo {
+  
+  margin-left: 0px;
+}
+.logo img {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(207, 75, 75);
+  border-radius: 50%;
+  object-fit: contain;
+  border: 2px solid #5c5757;
+margin-left: 0px;
+margin-right: 100px;
+}
+.heading h2 {
+  font-size: 24px;
+  color: #101010;
+  margin-bottom: 20px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+.heading h1 {
+  font-size: 36px;
+  color: #f6f1f1;
+  margin-bottom: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+.description p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #fbf8f8;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+text-align: justify;
+}
+.section {
+  margin-bottom: 40px;
+}
+.clubs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.club img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.club p {
+  text-align: center;
+  font-size: 14px;
+  color: #0c0c0c;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.head {
+  display: flex;
+
+  margin-bottom: 20px;
+}
+.cont {
+    width: 0;
+  
+  height: 0;
+  border-right: 25px solid #8B1D29;  /* base */
+  border-top: 25px solid transparent;
+}
+.head h3 {
+  font-size: 25px;
+  color: #050505;
+
+margin-top: 0px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.conste {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-container2 {
+background-color: #7d2e2e;
+color: white;
+
+flex-wrap: wrap;
+padding: 40px;
+max-width: 600px;
+margin: 20px auto;
+border-radius: 6px;
+clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%);
+height: 150px;
+
+
+}
+.footer {
+ background-color: #7d2e2e;
+color: rgb(15, 14, 14);
+text-align: left;
+font-size: 36px;
+position: relative;
+margin-bottom: 50px;
+width: 100%;
+padding-top: 0px; /* Move text downward slightly from top */
+padding-left: 20px; /* Optional: keep it from sticking to the left edge */
+padding-bottom: 50px; /* Add some space at the bottom */
+border-radius: 6px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}

@@ -1,0 +1,491 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fffdfd;
+  color: #585656;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+header {
+  background: #fff;
+
+}
+
+/* ✅ CLEAN TOP BAR WITH ONLY ONE CLASS */
+
+.top-bar {
+  background-image: url(keefer/logo.png);
+  background-repeat: no-repeat;
+  
+
+  background-color: #f5f5f5;
+ 
+  padding: 15px 20px;
+  font-family: Arial, sans-serif;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Wrapper for text content */
+.text {
+  margin-left: auto;
+  text-align: right;
+  line-height: 1.3;
+}
+
+/* Stylize each element inside text */
+.text strong {
+  font-size: 18px;
+  text-decoration: underline;
+  color: #990000;
+
+  margin-bottom: 0px;
+}
+
+.text b {
+  font-size: 37px;
+  color: #080808;
+  font-weight: bold;
+  
+  margin-top: 0px
+}
+
+.text p {
+  font-size: 14px;
+  color: #080808;
+  font-weight: bold;
+  margin-top: 1px;
+}
+/* ✅ NAVIGATION */
+nav ul {
+  display: flex;
+  justify-content: right;
+  background: maroon;
+  padding: 10px;
+  list-style: none;
+}
+
+nav ul li {
+  color: #fff;
+  margin: 0 15px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+nav ul li:hover {
+  background-color: #800000;
+  border-radius: 4px;
+}
+
+/* ✅ LAYOUT CONTAINERS */
+.container {
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+.upper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  height: 400px;
+  margin-top: 40px;
+}
+
+.hero-left {
+
+  padding: 10px;
+}
+
+.hero-left img {
+  width: 1000px;
+  height: 500px;
+
+}
+
+/* ✅ HERO RIGHT FORM SECTION */
+ .hero-right {
+  background-image: url('keefer/form_bg.jpg');
+  background-size: cover;
+  background-position: center;
+  flex: 1;
+  padding: 5px;
+  height:500px;
+  
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+} 
+
+.form2 { 
+  display: flex;
+  padding: 10px;
+  margin-bottom: 0px;
+}
+
+.confident {
+  font-size: 20px;
+  color: #990000;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.confident img {
+  width: 300px;
+  height: 50px;
+  vertical-align: middle;
+  margin-right: 5px;
+  transform: rotate(10deg);
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 50px;
+}
+.form1 {
+margin-top: 0px;
+margin-bottom: 0px;
+ 
+}
+.form1 p {
+  font-size: 20px;
+  color: #333;
+  margin-top: 10px;
+ 
+}
+.privacy {
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* adds space between p and button */
+}
+
+.privacy p {
+  font-weight: bold;
+  color: #3d3737;
+  font-size: 16px;
+margin-right: 40px; /* top right bottom left */
+  text-align: center;
+  margin-left: 40px;
+}
+
+.privacy button {
+  background: #990000;
+  color: white; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 8px; /* added padding for better click area */
+  transition: background-color 0.3s ease;
+  width: auto; /* better than fixed width */
+}
+.privacy button:hover {
+  background: #800000;
+}
+.hero-right h3 {
+  color: #faf6f6;
+  margin-bottom: 15px;
+  font-weight: bold;
+  background-color: #800000;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: left;
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.qu {
+  margin-left: 100px;
+
+ 
+}
+
+.qu strong {
+  font-size: 30px;
+  color: rgb(43, 43, 107);
+}
+
+.qu p {
+  font-size: 50px;
+}
+
+.Question {
+  margin-bottom: 0px;
+  display: flex;
+}
+.Question h3 {
+  color: #f6f2f2;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+.hero-right p {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.hero-right form input,
+.hero-right form textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+.hero-right form button {
+  background: #990000;
+  color: white;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-right form button:hover {
+  background: #800000;
+}
+
+/* Layout for Info Boxes */
+.info-boxes {
+  display: flex;
+  justify-content: space-between;
+  gap: 0px;
+  margin: 30px;
+}
+
+.box1, .box2, .box3  {
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  transition: box-shadow 0.3s ease;
+}
+
+.box1:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.box1 b,
+.box1 strong {
+  color: #990000;
+  font-size: 20px;
+}
+
+.st{
+  display: flex;
+}
+.box1 p ,.box p{
+  margin-top: 20px;
+  text-align: left;
+font-size: 20px;
+justify-content: left;
+text-align: justify;
+margin-right: 25px;
+}
+.box1 b,.box b, .box3 b{
+    font-size: 27px;
+      color: #990000;
+}
+.box1 img {
+  width: 130px;
+  height: 200px;
+margin-top: 0px;
+margin-bottom: 20px;
+}
+.box1 h4,.box h4,.box3 h4{
+  font-size: 27px;
+  font-family:'Times New Roman', Times, serif;
+  
+}
+.box1 button,.box3 button {
+  background: #990000;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  float: right;
+  transition: background-color 0.3s ease;
+}
+
+.box{
+  box-shadow: #333;
+  border-bottom: #333;
+margin-bottom: 10px;
+}
+.box button {
+  background: #990000;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+margin-left: 130px;
+
+  transition: background-color 0.3s ease;
+}
+.box1 button:hover {
+  background: #800000;
+} 
+.box3 img{
+gap:30px;
+margin-left: 30px;
+margin-bottom: 20px;
+}
+.box3 h4{
+  margin-bottom: 10px;
+}
+/* Responsive - Stacks Columns on Small Screens */
+@media (max-width: 900px) {
+  .info-boxes {
+    flex-direction: column;
+  }
+
+  .middle-column {
+    flex-direction: column;
+  }
+}
+
+/* ✅ SIDEBAR AND MAIN CONTENT */
+.main-content {
+  display: flex;
+  margin-top: 30px;
+  gap: 0px;
+}
+
+.sidebar {
+  width: 30%;
+  padding: 20px;
+  background: #ffffff;
+
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar h4 ,.h2 h4 {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  
+}
+.sidebar b ,.h2 b {
+  color: #800000;
+}
+.sidebar p {
+  float: right;
+  font-size: 13px;
+}
+.sidebar ul li {
+  box-shadow: #333;
+  padding: 17px;
+
+  background: #8a7b7b;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #fbfbfb;
+  transition: background-color 0.3s ease;
+  border-left: #800000 solid 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  
+}
+
+.sidebar ul li:hover {
+  background-color: #990000;
+  color: rgb(229, 222, 222);
+}
+
+.more p{
+margin-left: 0px;
+margin-right: 150px;
+font-size: 15px;
+padding: 10px;
+color: #b1a0a0;
+gap: 10px;
+line-height: 20px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.content {
+  flex: 1;
+  padding: 20px;
+  background: #fff;
+  margin-left: 20px;
+    margin-right: 20px;
+
+}
+.content p{
+  text-align: justify;
+}
+.back{
+  margin-bottom: 10px;
+}
+.certificates img{
+margin-left: 50px;
+margin-bottom: 10px;
+}
+/* ✅ FOOTER */
+footer {
+  text-align: center;
+  padding: 0px;
+
+  color: white;
+  margin-top: 0px;
+  border-top: 4px solid #990000;
+}
+
+.foot-socials img {
+  width: 24px;
+  margin: 0 8px;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.footer-socials img:hover {
+  opacity: 0.7;
+}
+.h2 button {
+  background: #990000;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+margin-left: 60px;
+
+  transition: background-color 0.3s ease;
+}

@@ -1,0 +1,32 @@
+.contact-text {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.contact-icon img {
+  width: 50px;
+}
+=======
+
+/* Contact Section */
+.contact-text {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.contact-icon img {
+  width: 50px;
+}
+
+/* Reduced spacing between image and text in row 1 col 1 */
+.col1 h1 {
+  margin-bottom: 5px;
+}
+
+.col1 p {
+  margin-bottom: 5px;
+}
+
+.col1 .app-buttons1 {
+  margin: 5px 0;
+}

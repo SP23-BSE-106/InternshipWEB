@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+/* Logo styling */
+.logo {
+  padding: 20px 40px 0;
+  
+}
+.logo img {
+  width: 60px;
+  height: 60px;
+  background-color: rgb(207, 75, 75);
+  border-radius: 50%;
+  object-fit: contain;
+  border: 2px solid #5c5757;
+color: tomato;
+border-inline-color: red;
+filter: sepia(100%) hue-rotate(-50deg) saturate(1000%) brightness(0.8);
+}
+
+/* Red container with two columns */
+.form-container {
+  background-color: #7d2e2e;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 20px auto;
+  border-radius: 6px;
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
+  height: 800px;
+  float: left;
+  margin-left: 30px;
+}
+
+.left {
+  flex: 1;
+  min-width: 280px;
+  margin-right: 100px;
+
+}
+
+.left h1 {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.left p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #282323;
+  margin-bottom: 20px;
+  max-width: 400px;
+}
+
+.left strong {
+  font-size: 25px;
+  color: rgb(13, 13, 13);
+}
+
+/* Right form section */
+.right {
+  flex: 2;
+  min-width: 300px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form placeholder {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid white;
+    border-radius: 2px;
+    background-color:#7d2e2e;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    box-sizing: border-box;
+      
+  opacity: 1;
+}
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color:#7d2e2e;
+  color: rgb(251, 248, 248);
+  font-size: 14px;
+  box-sizing: border-box;
+ 
+}
+
+form h3 {
+  font-size:25px;
+  margin-top: 20px;
+ color: rgb(13, 13, 13);
+}
+
+form p {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.award {
+  margin-bottom: 5px;
+}
+
+.award label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.award textarea {
+  height: 40px;
+  resize: vertical;
+}
+
+/* Submission success message */
+.submit-success {
+  margin-top: 20px;
+  text-align: center;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    
+}
