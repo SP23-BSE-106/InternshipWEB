@@ -1,6 +1,4 @@
-
-
-   
+  
 // Get references to input fields
 const num1 = document.getElementById("num1");
 const num2 = document.getElementById("num2");

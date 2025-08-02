@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="style1.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Array </title>
-</head>
-<body>
-<div class="container">
-  <h1>Random Array</h1>
-  
-  <button onclick="generateArray()">Make Array</button>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style1.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Array</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Random Array</h1>
 
-  <p id="arrayDisplay"></p>
-  <p id="result"></p>
-</div>
+      <button onclick="generateArray()">Make Array</button>
 
-<script>
-  function generateArray() {
-    let array = [];
-    // Generate an array of 10 random numbers between 1 and 100
-    for (let i = 0; i < 10; i++) {
-      array.push(Math.floor(Math.random() * 100) + 1);
-      
+      <p id="arrayDisplay"></p>
+      <p id="result"></p>
+    </div>
 
-    
-  }
-    // Display the generated array
-    document.getElementById('arrayDisplay').textContent = `Generated Array: ${array.join(', ')}`;
+    <script>
+      function generateArray() {
+        let array = [];
+        // Generate an array of 10 random numbers between 1 and 100
+        for (let i = 0; i < 10; i++) {
+          array.push(Math.floor(Math.random() * 100) + 1);
+        }
+        // Display the generated array
+        document.getElementById(
+          "arrayDisplay"
+        ).textContent = `Generated Array: ${array.join(", ")}`;
 
-    let firstElement = array[0];
- let lastElement = array[array.length - 1];
+        let firstElement = array[0];
+        let lastElement = array[array.length - 1];
 
-    // Display the first and last elements
-    document.getElementById('result').textContent = `First Element: ${firstElement}, Last Element: ${lastElement}`;
-  }
-</script>
-
-
-</body>
+        // Display the first and last elements
+        document.getElementById(
+          "result"
+        ).textContent = `First Element: ${firstElement}, Last Element: ${lastElement}`;
+      }
+    </script>
+  </body>
 </html>
+ 
+<!-- <script>
+  function generateArray(){
+    let array=[];
+
+    for (let i = 0; i < 10; i++) {
+  
+      array.push(Math.floor(Math.random()*100)+1);
+    }
+    document.getElementById("arrayDisplay").textContent=`Generated array : ${array.join(", ")}`;
+
+    let first=array[0];
+    let last=array[array.length-1];
+
+    document.getElementById("result").textContent= ` First Element= ${first} ,Last Element=${last}`;
+  }
+</script> -->
