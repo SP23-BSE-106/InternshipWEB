@@ -1,34 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Tabbed Navigation</title>
-  <link rel="stylesheet" href="task8a.css">
-</head>
-<body>
-  <div class="tabs">
-    <div class="tab-buttons">
-      <button class="tab-btn active" onclick="openTab(event, 'home')">Home</button>
-      <button class="tab-btn" onclick="openTab(event, 'about')">About</button>
-      <button class="tab-btn" onclick="openTab(event, 'contact')">Contact</button>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Munazza Javed - Portfolio</title>
+    <link rel="stylesheet" href="task8a.css" />
+  </head>
+  <body>
+    <div class="portfolio">
+      <header>
+        <h1>Munazza Javed</h1>
+        <p>
+          Software Engineering Student | Web & Java Developer | Cybersecurity
+          Enthusiast
+        </p>
+      </header>
+
+      <div class="tab-buttons">
+        <button class="tab-btn active" onclick="openTab(event, 'home')">
+          Home
+        </button>
+        <button class="tab-btn" onclick="openTab(event, 'about')">
+          About Me
+        </button>
+        <button class="tab-btn" onclick="openTab(event, 'skills')">
+          Skills
+        </button>
+        <button class="tab-btn" onclick="openTab(event, 'projects')">
+          Projects
+        </button>
+        <button class="tab-btn" onclick="openTab(event, 'contact')">
+          Contact
+        </button>
+      </div>
+
+      <div id="home" class="tab-content active">
+        <h2>Welcome!</h2>
+        <p>
+          Hello! I'm Munazza, a software engineering student at COMSATS
+          University, passionate about web development, programming, and
+          cybersecurity. 
+        </p>
+      </div>
+
+      <div id="about" class="tab-content">
+        <h2>About Me</h2>
+        <p>
+          I’m Munazza Javed, a dedicated student from Muzaffarabad, Azad
+          Kashmir.<br />
+          Currently learning C, Java, and front-end development.<br />
+          I love solving real-world problems and working on secure and scalable
+          software.
+        </p>
+      </div>
+
+      <div id="skills" class="tab-content">
+        <h2>Skills</h2>
+        <ul>
+          <li>
+            <strong>Languages:</strong> Java, C, HTML, CSS, JavaScript,React
+          </li>
+          <li><strong>Databases:</strong> MySQL</li>
+          <li>
+            <strong>Cybersecurity Tools:</strong> Cisco Packet Tracer, Wireshark
+          </li>
+          <li>
+            <strong>Concepts:</strong> Data Structures, OOP, Networking, DBMS
+          </li>
+          <li><strong>Tools:</strong> Git, GitHub, Visual Studio Code</li>
+        </ul>
+      </div>
+
+      <div id="projects" class="tab-content">
+        <h2>Projects</h2>
+        <ul>
+          <li>
+            <strong>Airline Reservation System</strong> – Java & UML-based
+          </li>
+          <li>
+            <strong>Statistical Analyzer</strong> – Mean, Median, Mode in Java
+          </li>
+          <li>
+            <strong>Responsive Website</strong> – Built with HTML, CSS,
+            JavaScript
+          </li>
+          <li>
+            <strong>Moon-Earth Secure Network</strong> – Cisco Packet Tracer
+            design
+          </li>
+        </ul>
+      </div>
+
+      <div id="contact" class="tab-content">
+        <h2>Contact Me</h2>
+        <p>
+          Email:
+          <a href="mailto:munazzajaved277@gmail.com"
+            >munazzajaved277@gmail.com</a
+          >
+        </p>
+        <p>Location: Muzaffarabad, Azad Kashmir, Pakistan</p>
+      </div>
     </div>
 
-    <div id="home" class="tab-content active">
-      <h2>Home</h2>
-      <p>Welcome to the Home tab.</p>
-    </div>
- 
-    <div id="about" class="tab-content">
-      <h2>About</h2>
-      <p>This is the About tab.</p>
-    </div>
-
-    <div id="contact" class="tab-content">
-      <h2>Contact</h2>
-      <p>Contact us at: munazzajaved277@gmail.com</p>
-    </div>
-  </div>
-
-  <script src="task8a.js"></script>
-</body>
+    <script src="task8a.js"></script>
+  </body>
 </html>
