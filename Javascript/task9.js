@@ -71,9 +71,8 @@
 // }
 
 // animate();}
-
 let contain = document.getElementById("bubble-container");
-let totalBubbles = 50;
+let totalBubbles = 40;
 
 for (let i = 0; i < totalBubbles; i++) {
   createBubble();
@@ -81,29 +80,44 @@ for (let i = 0; i < totalBubbles; i++) {
 
 function createBubble() {
   let bubble = document.createElement("div");
-  bubble.className = "bubble"; // ❌ You wrote .classname, correct is .className
+  bubble.className = "bubble";
 
-  let size = 10 + Math.random() * 30; // Bubble size between 10 and 40px
+  // Random size between 10px to 40px
+  let size = 10 + Math.random() * 30;
   bubble.style.width = `${size}px`;
   bubble.style.height = `${size}px`;
 
-  let x = Math.random() * (window.innerWidth - size); // Random X within screen width
-  let y = window.innerHeight + Math.random() * 100;    // Start below bottom
-
+  // Random horizontal position within the screen
+  let x = Math.random() * (window.innerWidth - size);
+  // Start slightly below the screen
+  let y = window.innerHeight + Math.random() * 100;
   bubble.style.left = `${x}px`;
   bubble.style.top = `${y}px`;
- 
+
   contain.appendChild(bubble);
 
-  let speed = 0.5 + Math.random(); // Bubble rise speed
+  let speed = 0.5 + Math.random(); // random upward speed
+  let paused = false;
+
+  // Pause when mouse enters
+  bubble.addEventListener("mouseenter", () => {
+    paused = true;
+  });
+
+  // Resume when mouse leaves
+  bubble.addEventListener("mouseleave", () => {
+    paused = false;
+  });
 
   function animate() {
-    y -= speed;
-    bubble.style.top = `${y}px`;
+    if (!paused) {
+      y -= speed;
+      bubble.style.top = `${y}px`;
+    }
 
     if (y < -50) {
       bubble.remove();
-      createBubble(); // Replace with a new one
+      createBubble(); // create a new one at bottom
     } else {
       requestAnimationFrame(animate);
     }
@@ -111,3 +125,4 @@ function createBubble() {
 
   animate();
 }
+

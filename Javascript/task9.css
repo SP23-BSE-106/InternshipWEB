@@ -1,7 +1,7 @@
 body {
   margin: 0;
   overflow: hidden;
-  background: #000428; /* dark blue background */
+  background: #00031c; /* dark blue background */
   background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
 }
 
@@ -13,7 +13,9 @@ body {
 
 .bubble {
   position: absolute;
-  background: rgba(117, 17, 17, 0.4);
+  background: rgba(202, 45, 153, 0.558); /* semi-transparent red tone */
   border-radius: 50%;
-  pointer-events: none;
+  pointer-events: auto; /* allow hover to pause movement */
+
+  transition: transform 0.2s ease; /* smooth transform when paused */
 }
