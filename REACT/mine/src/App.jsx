@@ -1,17 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import StudentList from './StudentList';
-import StudentProfile from './StudentProfile';
+import React, { useState } from "react";
+import StudentList from "./StudentList";
+import StudentProfile from "./StudentProfile";
 
 function App() {
+  const [currentView, setCurrentView] = useState('list');
+  const [selectedStudent, setSelectedStudent] = useState(null);
+
+  const handleViewProfile = (student) => {
+    setSelectedStudent(student);
+    setCurrentView('profile');
+  };
+
+  const handleBackToList = () => {
+    setCurrentView('list');
+    setSelectedStudent(null);
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<StudentList />} />
-        <Route path="/student/:id" element={<StudentProfile />} />
-      </Routes>
-    </Router>
+    <div>
+      {currentView === 'list' ? (
+        <StudentList onViewProfile={handleViewProfile} />
+      ) : (
+        <StudentProfile 
+          student={selectedStudent} 
+          onBack={handleBackToList} 
+        />
+      )}
+    </div>
   );
 }
 
 export default App;
+

@@ -1,19 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
 
-function StudentProfile() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [student, setStudent] = useState(null);
-
-  useEffect(() => {
-    axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then(res => setStudent(res.data))
-      .catch(err => console.error(err));
-  }, [id]);
-
-  if (!student) return <p>Loading...</p>;
+function StudentProfile({ student, onBack }) {
+  if (!student) return <p>Student not found...</p>;
 
   return (
     <div style={{ padding: '30px' }}>
@@ -28,14 +16,27 @@ function StudentProfile() {
         <h2>Name: {student.name}</h2>
         <p><strong>Email:</strong> {student.email}</p>
         <p><strong>Username:</strong> {student.username}</p>
-        <p><strong>Phone:</strong> {student.phone}</p>
-        <p><strong>Address:</strong> {JSON.stringify(student.address)}</p>
+        <p><strong>Phone:</strong> {student.phone || 'N/A'}</p>
+        <p><strong>Website:</strong> {student.website || 'N/A'}</p>
+        {student.address && (
+          <p>
+            <strong>Address:</strong> {student.address.street}, {student.address.suite}, {student.address.city}, {student.address.zipcode}
+          </p>
+        )}
       </div>
       <button
-        style={{ marginTop: '20px', padding: '8px 20px', background: 'seagreen', color: 'white', border: 'none', borderRadius: '5px' }}
-        onClick={() => navigate('/')}
+        style={{
+          marginTop: '20px',
+          padding: '8px 20px',
+          background: 'seagreen',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer'
+        }}
+        onClick={onBack}
       >
-        Back
+        Back to List
       </button>
     </div>
   );
