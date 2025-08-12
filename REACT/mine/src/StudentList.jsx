@@ -36,7 +36,7 @@ function StudentList({ onViewProfile }) {
     setEditingId(null);
   };
 
-  // Cancel edit
+  // Cancel edit 
   const handleCancel = () => {
     setEditingId(null);
     setEditForm({ name: '', username: '', email: '' });
@@ -66,6 +66,8 @@ function StudentList({ onViewProfile }) {
           </tr>
         </thead>
         <tbody>
+
+          
           {students.map(student => (
             <tr key={student.id}>
               {editingId === student.id ? (
