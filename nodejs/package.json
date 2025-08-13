@@ -1,0 +1,23 @@
+{
+  "name": "spotify",
+  "version": "1.0.0",
+  "description": "This is spotify clone for my app",
+  "main": "server.js",
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "spotify",
+    "music"
+  ],
+  "author": "Munazza",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "slugify": "^1.6.6"
+  }
+}
