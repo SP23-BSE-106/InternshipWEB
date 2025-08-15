@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing</title>
+</head>
+<body>
+    <h1>Testing POST Request</h1>
+
+    <script>
+        async function testPost() {
+            try {
+                let a = await fetch('/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: 'Hello from client!' })
+                });
+                let b = await a.text();
+                console.log("Server responded:", b);
+            } catch (error) {
+                console.error("Error sending POST:", error);
+            }
+        }
+        testPost();
+    </script>
+</body>
+</html>
