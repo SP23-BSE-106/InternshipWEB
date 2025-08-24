@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function TeacherPage() {
-  const [form, setForm] = useState({ name: "", email: "", password: "", teacherId: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    teacherId: "",
+  });
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [listLoading, setListLoading] = useState(false);
@@ -32,7 +37,7 @@ export default function TeacherPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    
+
     try {
       await axios.post("/api/teachers", form);
       alert("Teacher added successfully!");
@@ -44,12 +49,12 @@ export default function TeacherPage() {
       console.error("Error data:", err.response?.data);
       console.error("Error status:", err.response?.status);
       console.error("Error headers:", err.response?.headers);
-      
+
       let errorMessage = "Failed to add teacher. Please try again.";
-      
+
       if (err.response?.data) {
         // Try different possible error formats
-        if (typeof err.response.data === 'string') {
+        if (typeof err.response.data === "string") {
           errorMessage = err.response.data;
         } else if (err.response.data.error) {
           errorMessage = err.response.data.error;
@@ -59,7 +64,7 @@ export default function TeacherPage() {
       } else if (err.message) {
         errorMessage = err.message;
       }
-      
+
       setError(errorMessage);
     } finally {
       setLoading(false);
@@ -68,13 +73,14 @@ export default function TeacherPage() {
 
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this teacher?")) return;
-    
+
     try {
       await axios.delete(`/api/teachers/${id}`);
       alert("Teacher deleted successfully!");
       fetchTeachers(); // Refresh the list
     } catch (err) {
-      const errorMessage = err.response?.data?.error || "Failed to delete teacher.";
+      const errorMessage =
+        err.response?.data?.error || "Failed to delete teacher.";
       alert(errorMessage);
       console.error("Delete Error:", err);
     }
@@ -83,12 +89,15 @@ export default function TeacherPage() {
   return (
     <div className="page-container">
       <h1 className="page-title">Teacher Management</h1>
-      
+
       {/* Add Teacher Form */}
       <div className="form-container">
         <h2>Add New Teacher</h2>
         {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+        >
           <input
             type="text"
             placeholder="Name"
@@ -121,12 +130,8 @@ export default function TeacherPage() {
             required
             className="form-input"
           />
-          <button 
-            type="submit" 
-            disabled={loading}
-            className="form-button"
-          >
-            {loading ? 'Adding...' : 'Add Teacher'}
+          <button type="submit" disabled={loading} className="form-button">
+            {loading ? "Adding..." : "Add Teacher"}
           </button>
         </form>
       </div>
@@ -155,7 +160,7 @@ export default function TeacherPage() {
                   <td>{teacher.email}</td>
                   <td>{teacher.teacherId}</td>
                   <td>
-                    <button 
+                    <button
                       onClick={() => handleDelete(teacher._id)}
                       className="action-button"
                     >
