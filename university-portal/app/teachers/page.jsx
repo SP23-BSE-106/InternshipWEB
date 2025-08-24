@@ -1,177 +1,269 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { useRouter } from "next/navigation";
+import { isAuthenticated, getUserRole, logout, getUserName, getUserEmailFromToken } from "@/lib/auth";
 
-export default function TeacherPage() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    teacherId: "",
-  });
-  const [teachers, setTeachers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [listLoading, setListLoading] = useState(false);
-  const [error, setError] = useState("");
+export default function TeacherDashboard() {
+  const router = useRouter();
+  const [authenticated, setAuthenticated] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [classes, setClasses] = useState([]);
+  const [assignments, setAssignments] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch teachers on component mount
   useEffect(() => {
-    fetchTeachers();
-  }, []);
-
-  const fetchTeachers = async () => {
-    setListLoading(true);
-    try {
-      const response = await axios.get("/api/teachers");
-      setTeachers(response.data);
-    } catch (err) {
-      console.error("Error fetching teachers:", err);
-      setError("Failed to load teachers");
-    } finally {
-      setListLoading(false);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      await axios.post("/api/teachers", form);
-      alert("Teacher added successfully!");
-      setForm({ name: "", email: "", password: "", teacherId: "" });
-      fetchTeachers(); // Refresh the list
-    } catch (err) {
-      console.error("Full error object:", err);
-      console.error("Error response:", err.response);
-      console.error("Error data:", err.response?.data);
-      console.error("Error status:", err.response?.status);
-      console.error("Error headers:", err.response?.headers);
-
-      let errorMessage = "Failed to add teacher. Please try again.";
-
-      if (err.response?.data) {
-        // Try different possible error formats
-        if (typeof err.response.data === "string") {
-          errorMessage = err.response.data;
-        } else if (err.response.data.error) {
-          errorMessage = err.response.data.error;
-        } else if (err.response.data.message) {
-          errorMessage = err.response.data.message;
+    const checkAuth = () => {
+      const authStatus = isAuthenticated();
+      setAuthenticated(authStatus);
+      
+      if (authStatus) {
+        const role = getUserRole();
+        if (role !== "teacher") {
+          if (role === "student") {
+            router.push("/students");
+          } else if (role === "admin") {
+            router.push("/admins");
+          }
+          return;
         }
-      } else if (err.message) {
-        errorMessage = err.message;
+        
+        const name = getUserName();
+        setUserName(name);
+        // Use mock data for email to avoid token parsing issues
+        setUserEmail("teacher@example.com");
+        setAvatarUrl(`https://api.dicebear.com/7.x/identicon/svg?seed=${name}`);
+        
+        // Mock data for demo
+        setClasses([
+          { id: 1, name: "Mathematics 101", students: 30, credits: 3 },
+          { id: 2, name: "Computer Science Fundamentals", students: 25, credits: 4 },
+          { id: 3, name: "English Composition", students: 28, credits: 3 }
+        ]);
+
+        setAssignments([
+          { id: 1, title: "Calculus Assignment", class: "Mathematics 101", dueDate: "2024-01-20", submissions: 15, totalStudents: 30 },
+          { id: 2, title: "Programming Project", class: "Computer Science Fundamentals", dueDate: "2024-01-25", submissions: 20, totalStudents: 25 },
+          { id: 3, title: "Essay Writing", class: "English Composition", dueDate: "2024-01-18", submissions: 25, totalStudents: 28 }
+        ]);
+
+        setStudents([
+          { name: "Ali Raza", class: "Mathematics 101", grade: "A", percentage: 95 },
+          { name: "Sara Khan", class: "Computer Science Fundamentals", grade: "B+", percentage: 89 },
+          { name: "Ahmed Hassan", class: "English Composition", grade: "A-", percentage: 90 }
+        ]);
+      } else {
+        router.push("/");
       }
-
-      setError(errorMessage);
-    } finally {
       setLoading(false);
-    }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  const handleLogout = () => {
+    logout();
+    setAuthenticated(false);
+    router.push("/");
   };
 
-  const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this teacher?")) return;
-
-    try {
-      await axios.delete(`/api/teachers/${id}`);
-      alert("Teacher deleted successfully!");
-      fetchTeachers(); // Refresh the list
-    } catch (err) {
-      const errorMessage =
-        err.response?.data?.error || "Failed to delete teacher.";
-      alert(errorMessage);
-      console.error("Delete Error:", err);
-    }
-  };
+  if (loading) {
+    return (
+      <div className="page-container">
+        <div className="loading-spinner">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="page-container">
-      <h1 className="page-title">Teacher Management</h1>
-
-      {/* Add Teacher Form */}
-      <div className="form-container">
-        <h2>Add New Teacher</h2>
-        {error && <div className="error-message">{error}</div>}
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-        >
-          <input
-            type="text"
-            placeholder="Name"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-            className="form-input"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            required
-            className="form-input"
-          />
-          <input
-            type="text"
-            placeholder="Teacher ID"
-            value={form.teacherId}
-            onChange={(e) => setForm({ ...form, teacherId: e.target.value })}
-            required
-            className="form-input"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            required
-            className="form-input"
-          />
-          <button type="submit" disabled={loading} className="form-button">
-            {loading ? "Adding..." : "Add Teacher"}
-          </button>
-        </form>
+      {/* Hero Section */}
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem', flexWrap: 'wrap', marginBottom: '2rem'}}>
+        <div style={{flex: 1, minWidth: 300}}>
+          <h1 className="page-title" style={{textAlign: 'left', fontSize: '2.5rem', marginBottom: '1rem'}}>Teacher Dashboard</h1>
+          <p className="dashboard-subtitle" style={{textAlign: 'left', fontSize: '1.15rem', marginBottom: '2rem'}}>
+            Welcome back, <span style={{color: '#60a5fa', fontWeight: 600}}>{userName}</span>!
+          </p>
+          <ul style={{marginBottom: '2rem', paddingLeft: '1.5rem'}}>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>📚 Manage your teaching classes and curriculum</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>📝 Create and track assignments and submissions</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>📊 Monitor student performance and grades</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>⚡ Quick access to teaching tools and resources</li>
+          </ul>
+        </div>
+        <div style={{flex: 1, minWidth: 300, display: 'flex', justifyContent: 'center'}}>
+          {avatarUrl && (
+            <img src={avatarUrl} alt="Avatar" style={{width: 180, height: 180, borderRadius: '50%', background: '#334155', border: '3px solid #60a5fa', boxShadow: '0 8px 32px rgba(59,130,246,0.15)'}} />
+          )}
+        </div>
       </div>
 
-      {/* Teachers List */}
-      <div>
-        <h2>Existing Teachers</h2>
-        {listLoading ? (
-          <p>Loading teachers...</p>
-        ) : teachers.length === 0 ? (
-          <p>No teachers found.</p>
-        ) : (
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Teacher ID</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {teachers.map((teacher) => (
-                <tr key={teacher._id}>
-                  <td>{teacher.name}</td>
-                  <td>{teacher.email}</td>
-                  <td>{teacher.teacherId}</td>
-                  <td>
-                    <button
-                      onClick={() => handleDelete(teacher._id)}
-                      className="action-button"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+      {/* Teacher Info Card */}
+      <div className="info-card" style={{marginTop: '2rem'}}>
+        <h3 className="info-card-title">Teacher Information</h3>
+        <div className="info-grid">
+          <div className="info-item">
+            <span className="info-label">Name:</span>
+            <span className="info-value">{userName}</span>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Email:</span>
+            <span className="info-value">{userEmail}</span>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Role:</span>
+            <span className="info-value">Teacher</span>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Classes:</span>
+            <span className="info-value">{classes.length}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Dashboard Cards */}
+      <div className="dashboard-grid" style={{marginTop: '2rem'}}>
+        {/* My Classes */}
+        <div className="dashboard-card">
+          <h3 className="dashboard-card-title">📚 My Classes</h3>
+          <div className="card-content">
+            {classes.length === 0 ? (
+              <p className="no-data">No classes assigned</p>
+            ) : (
+              <ul className="list">
+                {classes.map((cls) => (
+                  <li key={cls.id} className="list-item">
+                    <div className="list-item-main">
+                      <span className="list-item-title">{cls.name}</span>
+                      <span className="list-item-subtitle">{cls.students} students</span>
+                    </div>
+                    <span className="list-item-badge">{cls.credits} credits</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
+        {/* Assignments */}
+        <div className="dashboard-card">
+          <h3 className="dashboard-card-title">📝 Assignments</h3>
+          <div className="card-content">
+            {assignments.length === 0 ? (
+              <p className="no-data">No assignments created</p>
+            ) : (
+              <ul className="list">
+                {assignments.map((assignment) => (
+                  <li key={assignment.id} className="list-item">
+                    <div className="list-item-main">
+                      <span className="list-item-title">{assignment.title}</span>
+                      <span className="list-item-subtitle">{assignment.class}</span>
+                    </div>
+                    <div className="list-item-right">
+                      <span className="list-item-date">Due: {assignment.dueDate}</span>
+                      <span className={`status-badge ${assignment.submissions === assignment.totalStudents ? 'submitted' : assignment.submissions > 0 ? 'pending' : 'late'}`}>
+                        {assignment.submissions}/{assignment.totalStudents} submitted
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
+        {/* Student Performance */}
+        <div className="dashboard-card">
+          <h3 className="dashboard-card-title">📊 Student Performance</h3>
+          <div className="card-content">
+            {students.length === 0 ? (
+              <p className="no-data">No student data available</p>
+            ) : (
+              <ul className="list">
+                {students.map((student, index) => (
+                  <li key={index} className="list-item">
+                    <div className="list-item-main">
+                      <span className="list-item-title">{student.name}</span>
+                      <span className="list-item-subtitle">{student.class}</span>
+                    </div>
+                    <div className="list-item-right">
+                      <span className="grade-percentage">{student.percentage}%</span>
+                      <span className="grade-letter">{student.grade}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="dashboard-card">
+          <h3 className="dashboard-card-title">⚡ Quick Actions</h3>
+          <div className="card-content">
+            <div className="action-buttons">
+              <button className="action-button primary">
+                Create Assignment
+              </button>
+              <button className="action-button secondary">
+                Grade Submissions
+              </button>
+              <button className="action-button secondary">
+                View Attendance
+              </button>
+              <button className="action-button secondary">
+                Schedule Class
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div className="features-grid" style={{marginTop: '2rem'}}>
+        <div className="feature-card">
+          <h3>🎓 Teaching Tools</h3>
+          <p>Access comprehensive teaching resources, lesson plans, and curriculum materials.</p>
+        </div>
+        <div className="feature-card">
+          <h3>📅 Class Schedule</h3>
+          <p>Manage your class timetable and keep track of upcoming sessions.</p>
+        </div>
+        <div className="feature-card">
+          <h3>📈 Analytics</h3>
+          <p>Get insights into student performance and class statistics.</p>
+        </div>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="dashboard-section" style={{marginTop: '2rem'}}>
+        <h2 className="section-title">Recent Activity</h2>
+        <div className="activity-list">
+          <div className="activity-item">
+            <div className="activity-icon">📚</div>
+            <div className="activity-content">
+              <p>Created new assignment for Mathematics 101</p>
+              <span className="activity-time">2 hours ago</span>
+            </div>
+          </div>
+          <div className="activity-item">
+            <div className="activity-icon">📝</div>
+            <div className="activity-content">
+              <p>Graded 15 submissions for Programming Project</p>
+              <span className="activity-time">1 day ago</span>
+            </div>
+          </div>
+          <div className="activity-item">
+            <div className="activity-icon">📊</div>
+            <div className="activity-content">
+              <p>Updated attendance records for all classes</p>
+              <span className="activity-time">3 days ago</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

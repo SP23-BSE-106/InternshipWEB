@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import { validateEnv } from "./env";
+
+// Validate environment variables on first import
+validateEnv();
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/universityPortal";
 
