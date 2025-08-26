@@ -43,14 +43,10 @@ export default function StudentDashboard() {
         setUserName(name);
         console.log("User name:", name);
         
-        // Use mock data for now to avoid token parsing issues
-  setUserEmail("student@example.com");
-  setUserRollNo("ROLL1234");
-  // Generate a random avatar for demo
-  setAvatarUrl(`https://api.dicebear.com/7.x/identicon/svg?seed=${name}`);
-  // Load mock data immediately without fetching from API
-  loadMockData();
-  setLoading(false);
+        // Fetch actual student details from API
+        fetchStudentDetails();
+        // Generate a random avatar for demo
+        setAvatarUrl(`https://api.dicebear.com/7.x/identicon/svg?seed=${name}`);
       } else {
         console.log("Not authenticated, redirecting to home");
         router.push("/");
@@ -134,10 +130,10 @@ export default function StudentDashboard() {
             Welcome back, <span style={{color: '#60a5fa', fontWeight: 600}}>{userName}</span>! ({userRollNo})
           </p>
           <ul style={{marginBottom: '2rem', paddingLeft: '1.5rem'}}>
-            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>📚 View and manage your enrolled courses</li>
-            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>📝 Track assignments and deadlines</li>
-            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>📊 Monitor your grades and performance</li>
-            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>⚡ Quick actions for your academic needs</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>View and manage your enrolled courses</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>Track assignments and deadlines</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>Monitor your grades and performance</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>Quick actions for your academic needs</li>
           </ul>
         </div>
         <div style={{flex: 1, minWidth: 300, display: 'flex', justifyContent: 'center'}}>
@@ -174,7 +170,7 @@ export default function StudentDashboard() {
       <div className="dashboard-grid" style={{marginTop: '2rem'}}>
         {/* My Courses */}
         <div className="dashboard-card">
-          <h3 className="dashboard-card-title">📚 My Courses</h3>
+          <h3 className="dashboard-card-title">My Courses</h3>
           <div className="card-content">
             {courses.length === 0 ? (
               <p className="no-data">No courses enrolled</p>
@@ -196,7 +192,7 @@ export default function StudentDashboard() {
 
         {/* Assignments */}
         <div className="dashboard-card">
-          <h3 className="dashboard-card-title">📝 Assignments</h3>
+          <h3 className="dashboard-card-title">Assignments</h3>
           <div className="card-content">
             {assignments.length === 0 ? (
               <p className="no-data">No assignments</p>
@@ -223,7 +219,7 @@ export default function StudentDashboard() {
 
         {/* Grades */}
         <div className="dashboard-card">
-          <h3 className="dashboard-card-title">📊 Grades</h3>
+          <h3 className="dashboard-card-title">Grades</h3>
           <div className="card-content">
             {grades.length === 0 ? (
               <p className="no-data">No grades available</p>
@@ -248,7 +244,7 @@ export default function StudentDashboard() {
 
         {/* Quick Actions */}
         <div className="dashboard-card">
-          <h3 className="dashboard-card-title">⚡ Quick Actions</h3>
+          <h3 className="dashboard-card-title">Quick Actions</h3>
           <div className="card-content">
             <div className="action-buttons">
               <button className="action-button primary">
@@ -271,15 +267,15 @@ export default function StudentDashboard() {
       {/* Highlights Section */}
       <div className="features-grid" style={{marginTop: '2rem'}}>
         <div className="feature-card">
-          <h3>🎓 Academic Progress</h3>
+          <h3>Academic Progress</h3>
           <p>Track your grades, assignments, and course completion in real time.</p>
         </div>
         <div className="feature-card">
-          <h3>📅 Schedule</h3>
+          <h3>Schedule</h3>
           <p>Stay updated with upcoming deadlines and events.</p>
         </div>
         <div className="feature-card">
-          <h3>💬 Support</h3>
+          <h3>Support</h3>
           <p>Contact your advisor or get help whenever you need it.</p>
         </div>
       </div>
@@ -289,21 +285,21 @@ export default function StudentDashboard() {
         <h2 className="section-title">Recent Activity</h2>
         <div className="activity-list">
           <div className="activity-item">
-            <div className="activity-icon">📚</div>
+            <div className="activity-icon">•</div>
             <div className="activity-content">
               <p>Enrolled in Mathematics 101</p>
               <span className="activity-time">2 hours ago</span>
             </div>
           </div>
           <div className="activity-item">
-            <div className="activity-icon">📝</div>
+            <div className="activity-icon">•</div>
             <div className="activity-content">
               <p>Submitted Calculus Assignment</p>
               <span className="activity-time">1 day ago</span>
             </div>
           </div>
           <div className="activity-item">
-            <div className="activity-icon">📊</div>
+            <div className="activity-icon">•</div>
             <div className="activity-content">
               <p>Received grade for Quiz 1: A-</p>
               <span className="activity-time">3 days ago</span>

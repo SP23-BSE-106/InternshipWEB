@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { isAuthenticated, getUserRole, logout, getUserName, getUserEmailFromToken } from "@/lib/auth";
+import { isAuthenticated, getUserRole, logout, getUserName, getUserEmailFromToken, getUserId } from "@/lib/auth";
 
 export default function TeacherDashboard() {
   const router = useRouter();
@@ -33,8 +33,8 @@ export default function TeacherDashboard() {
         
         const name = getUserName();
         setUserName(name);
-        // Use mock data for email to avoid token parsing issues
-        setUserEmail("teacher@example.com");
+        // Fetch actual teacher email from API
+        fetchTeacherDetails();
         setAvatarUrl(`https://api.dicebear.com/7.x/identicon/svg?seed=${name}`);
         
         // Mock data for demo
@@ -64,6 +64,29 @@ export default function TeacherDashboard() {
     checkAuth();
   }, [router]);
 
+  const fetchTeacherDetails = async () => {
+    try {
+      const email = getUserEmailFromToken();
+      if (email) {
+        setUserEmail(email);
+      } else {
+        // Fallback to API if email not in token
+        const userId = getUserId();
+        if (userId) {
+          const res = await fetch(`/api/teachers/${userId}`);
+          if (res.ok) {
+            const teacherData = await res.json();
+            setUserEmail(teacherData.email);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching teacher details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleLogout = () => {
     logout();
     setAuthenticated(false);
@@ -88,10 +111,10 @@ export default function TeacherDashboard() {
             Welcome back, <span style={{color: '#60a5fa', fontWeight: 600}}>{userName}</span>!
           </p>
           <ul style={{marginBottom: '2rem', paddingLeft: '1.5rem'}}>
-            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>📚 Manage your teaching classes and curriculum</li>
-            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>📝 Create and track assignments and submissions</li>
-            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>📊 Monitor student performance and grades</li>
-            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>⚡ Quick access to teaching tools and resources</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>Manage your teaching classes and curriculum</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>Create and track assignments and submissions</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>Monitor student performance and grades</li>
+            <li style={{marginBottom: '0.5rem', fontSize: '1.05rem'}}>Quick access to teaching tools and resources</li>
           </ul>
         </div>
         <div style={{flex: 1, minWidth: 300, display: 'flex', justifyContent: 'center'}}>
@@ -128,7 +151,7 @@ export default function TeacherDashboard() {
       <div className="dashboard-grid" style={{marginTop: '2rem'}}>
         {/* My Classes */}
         <div className="dashboard-card">
-          <h3 className="dashboard-card-title">📚 My Classes</h3>
+          <h3 className="dashboard-card-title">My Classes</h3>
           <div className="card-content">
             {classes.length === 0 ? (
               <p className="no-data">No classes assigned</p>
@@ -150,7 +173,7 @@ export default function TeacherDashboard() {
 
         {/* Assignments */}
         <div className="dashboard-card">
-          <h3 className="dashboard-card-title">📝 Assignments</h3>
+          <h3 className="dashboard-card-title">Assignments</h3>
           <div className="card-content">
             {assignments.length === 0 ? (
               <p className="no-data">No assignments created</p>
@@ -177,7 +200,7 @@ export default function TeacherDashboard() {
 
         {/* Student Performance */}
         <div className="dashboard-card">
-          <h3 className="dashboard-card-title">📊 Student Performance</h3>
+          <h3 className="dashboard-card-title">Student Performance</h3>
           <div className="card-content">
             {students.length === 0 ? (
               <p className="no-data">No student data available</p>
@@ -202,7 +225,7 @@ export default function TeacherDashboard() {
 
         {/* Quick Actions */}
         <div className="dashboard-card">
-          <h3 className="dashboard-card-title">⚡ Quick Actions</h3>
+          <h3 className="dashboard-card-title">Quick Actions</h3>
           <div className="card-content">
             <div className="action-buttons">
               <button className="action-button primary">
@@ -225,15 +248,15 @@ export default function TeacherDashboard() {
       {/* Features Section */}
       <div className="features-grid" style={{marginTop: '2rem'}}>
         <div className="feature-card">
-          <h3>🎓 Teaching Tools</h3>
+          <h3>Teaching Tools</h3>
           <p>Access comprehensive teaching resources, lesson plans, and curriculum materials.</p>
         </div>
         <div className="feature-card">
-          <h3>📅 Class Schedule</h3>
+          <h3>Class Schedule</h3>
           <p>Manage your class timetable and keep track of upcoming sessions.</p>
         </div>
         <div className="feature-card">
-          <h3>📈 Analytics</h3>
+          <h3>Analytics</h3>
           <p>Get insights into student performance and class statistics.</p>
         </div>
       </div>
@@ -243,21 +266,21 @@ export default function TeacherDashboard() {
         <h2 className="section-title">Recent Activity</h2>
         <div className="activity-list">
           <div className="activity-item">
-            <div className="activity-icon">📚</div>
+            <div className="activity-icon">A</div>
             <div className="activity-content">
               <p>Created new assignment for Mathematics 101</p>
               <span className="activity-time">2 hours ago</span>
             </div>
           </div>
           <div className="activity-item">
-            <div className="activity-icon">📝</div>
+            <div className="activity-icon">G</div>
             <div className="activity-content">
               <p>Graded 15 submissions for Programming Project</p>
               <span className="activity-time">1 day ago</span>
             </div>
           </div>
           <div className="activity-item">
-            <div className="activity-icon">📊</div>
+            <div className="activity-icon">U</div>
             <div className="activity-content">
               <p>Updated attendance records for all classes</p>
               <span className="activity-time">3 days ago</span>

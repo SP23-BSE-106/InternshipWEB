@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { isAuthenticated, getUserRole, logout, getUserName } from "@/lib/auth";
+import { isAuthenticated, getUserRole, logout, getUserName, getUserEmailFromToken, getUserId } from "@/lib/auth";
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -42,9 +42,9 @@ export default function AdminDashboard() {
         
         const name = getUserName();
         setUserName(name);
-        setUserEmail("admin@example.com");
+        // Fetch actual admin email from API
+        fetchAdminDetails();
         setAvatarUrl(`https://api.dicebear.com/7.x/identicon/svg?seed=${name}`);
-        
         loadMockData();
       } else {
         router.push("/");
@@ -81,6 +81,29 @@ export default function AdminDashboard() {
     logout();
     setAuthenticated(false);
     router.push("/");
+  };
+
+  const fetchAdminDetails = async () => {
+    try {
+      const email = getUserEmailFromToken();
+      if (email) {
+        setUserEmail(email);
+      } else {
+        // Fallback to API if email not in token
+        const userId = getUserId();
+        if (userId) {
+          const res = await fetch(`/api/admins/${userId}`);
+          if (res.ok) {
+            const adminData = await res.json();
+            setUserEmail(adminData.email);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching admin details:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGoToManagement = () => {

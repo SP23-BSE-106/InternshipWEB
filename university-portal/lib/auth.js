@@ -8,9 +8,9 @@ export async function hashPassword(password) {
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-production";
 
-// 🔹 Generate JWT token (valid for 24 hours for better testing)
+// 🔹 Generate JWT token (valid for 1 hour)
 export function generateToken(payload) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: "24h" });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
 }
 
 // 🔹 Verify JWT token
