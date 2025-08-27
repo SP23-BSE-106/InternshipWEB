@@ -16,6 +16,7 @@ export default function AdminManagement() {
   const [adminLoading, setAdminLoading] = useState(false);
   const [adminListLoading, setAdminListLoading] = useState(false);
   const [adminError, setAdminError] = useState("");
+  const [showAdmins, setShowAdmins] = useState(false);
 
   // Student management state
   const [studentForm, setStudentForm] = useState({ name: "", email: "", password: "", rollNo: "" });
@@ -23,6 +24,7 @@ export default function AdminManagement() {
   const [studentLoading, setStudentLoading] = useState(false);
   const [studentListLoading, setStudentListLoading] = useState(false);
   const [studentError, setStudentError] = useState("");
+  const [showStudents, setShowStudents] = useState(false);
 
   // Teacher management state
   const [teacherForm, setTeacherForm] = useState({ name: "", email: "", password: "", teacherId: "" });
@@ -30,6 +32,7 @@ export default function AdminManagement() {
   const [teacherLoading, setTeacherLoading] = useState(false);
   const [teacherListLoading, setTeacherListLoading] = useState(false);
   const [teacherError, setTeacherError] = useState("");
+  const [showTeachers, setShowTeachers] = useState(false);
 
   useEffect(() => {
     const checkAuth = () => {
@@ -317,38 +320,49 @@ export default function AdminManagement() {
         {/* Students List */}
         <div>
           <h3>Existing Students</h3>
-          {studentListLoading ? (
-            <p className="loading-text">Loading students...</p>
-          ) : students.length === 0 ? (
-            <p className="loading-text">No students found.</p>
-          ) : (
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Roll Number</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {students.map((student) => (
-                  <tr key={student._id}>
-                    <td>{student.name}</td>
-                    <td>{student.email}</td>
-                    <td>{student.rollNo}</td>
-                    <td>
-                      <button 
-                        onClick={() => handleStudentDelete(student._id)}
-                        className="action-button"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <button 
+            className="action-button secondary"
+            onClick={() => setShowStudents(!showStudents)}
+            style={{marginBottom: '1rem'}}
+          >
+            {showStudents ? 'Hide Students' : 'Show Students'}
+          </button>
+          {showStudents && (
+            <>
+              {studentListLoading ? (
+                <p className="loading-text">Loading students...</p>
+              ) : students.length === 0 ? (
+                <p className="loading-text">No students found.</p>
+              ) : (
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Roll Number</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {students.map((student) => (
+                      <tr key={student._id}>
+                        <td>{student.name}</td>
+                        <td>{student.email}</td>
+                        <td>{student.rollNo}</td>
+                        <td>
+                          <button 
+                            onClick={() => handleStudentDelete(student._id)}
+                            className="action-button"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -407,38 +421,49 @@ export default function AdminManagement() {
         {/* Teachers List */}
         <div>
           <h3>Existing Teachers</h3>
-          {teacherListLoading ? (
-            <p className="loading-text">Loading teachers...</p>
-          ) : teachers.length === 0 ? (
-            <p className="loading-text">No teachers found.</p>
-          ) : (
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Teacher ID</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {teachers.map((teacher) => (
-                  <tr key={teacher._id}>
-                    <td>{teacher.name}</td>
-                    <td>{teacher.email}</td>
-                    <td>{teacher.teacherId}</td>
-                    <td>
-                      <button 
-                        onClick={() => handleTeacherDelete(teacher._id)}
-                        className="action-button"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <button 
+            className="action-button secondary"
+            onClick={() => setShowTeachers(!showTeachers)}
+            style={{marginBottom: '1rem'}}
+          >
+            {showTeachers ? 'Hide Teachers' : 'Show Teachers'}
+          </button>
+          {showTeachers && (
+            <>
+              {teacherListLoading ? (
+                <p className="loading-text">Loading teachers...</p>
+              ) : teachers.length === 0 ? (
+                <p className="loading-text">No teachers found.</p>
+              ) : (
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Teacher ID</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {teachers.map((teacher) => (
+                      <tr key={teacher._id}>
+                        <td>{teacher.name}</td>
+                        <td>{teacher.email}</td>
+                        <td>{teacher.teacherId}</td>
+                        <td>
+                          <button 
+                            onClick={() => handleTeacherDelete(teacher._id)}
+                            className="action-button"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -489,36 +514,47 @@ export default function AdminManagement() {
         {/* Admins List */}
         <div>
           <h3>Existing Admins</h3>
-          {adminListLoading ? (
-            <p className="loading-text">Loading admins...</p>
-          ) : admins.length === 0 ? (
-            <p className="loading-text">No admins found.</p>
-          ) : (
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {admins.map((admin) => (
-                  <tr key={admin._id}>
-                    <td>{admin.name}</td>
-                    <td>{admin.email}</td>
-                    <td>
-                      <button 
-                        onClick={() => handleAdminDelete(admin._id)}
-                        className="action-button"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <button 
+            className="action-button secondary"
+            onClick={() => setShowAdmins(!showAdmins)}
+            style={{marginBottom: '1rem'}}
+          >
+            {showAdmins ? 'Hide Admins' : 'Show Admins'}
+          </button>
+          {showAdmins && (
+            <>
+              {adminListLoading ? (
+                <p className="loading-text">Loading admins...</p>
+              ) : admins.length === 0 ? (
+                <p className="loading-text">No admins found.</p>
+              ) : (
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {admins.map((admin) => (
+                      <tr key={admin._id}>
+                        <td>{admin.name}</td>
+                        <td>{admin.email}</td>
+                        <td>
+                          <button 
+                            onClick={() => handleAdminDelete(admin._id)}
+                            className="action-button"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </>
           )}
         </div>
       </div>

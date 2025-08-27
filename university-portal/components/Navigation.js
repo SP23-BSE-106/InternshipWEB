@@ -12,28 +12,35 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Function to check and update auth state
+  const checkAuth = () => {
+    const authStatus = isAuthenticated();
+    setIsAuthenticatedUser(authStatus);
+
+    if (authStatus) {
+      const role = getUserRole();
+      setUserRole(role);
+      const name = getUserName();
+      setUserName(name);
+    } else {
+      setUserRole(null);
+      setUserName("");
+    }
+  };
+
   useEffect(() => {
-    const checkAuth = () => {
-      const authStatus = isAuthenticated();
-      setIsAuthenticatedUser(authStatus);
-
-      if (authStatus) {
-        const role = getUserRole();
-        setUserRole(role);
-        const name = getUserName();
-        setUserName(name);
-      }
-    };
-
+    // Check auth on mount
     checkAuth();
+
+    // Set up interval to check auth state periodically
+    const interval = setInterval(checkAuth, 1000); // Check every second
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleLogout = () => {
     logout();
-    setIsAuthenticatedUser(false);
-    setUserRole(null);
-    setUserName("");
-    window.location.href = "/";
+    // The logout function already redirects, so we don't need to update state here
   };
 
   const isActive = (path) => {
@@ -59,7 +66,7 @@ export default function Navigation() {
         <div className="navbar-menu">
           {isAuthenticatedUser ? (
             <div className="navbar-user">
-            
+             
               <button onClick={handleLogout} className="logout-btn">
                 <img 
                   src="https://cdn-icons-png.flaticon.com/512/126/126467.png" 

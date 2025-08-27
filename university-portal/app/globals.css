@@ -34,7 +34,7 @@ body {
 }
 
 .hero-section {
-  @apply py-8 px-4 text-center; /* Reduced py-12 to py-8 to move content even higher */
+  @apply py-4 px-4 text-center; /* Reduced py-8 to py-4 to move content even higher */
 }
 
 .hero-content {
@@ -43,7 +43,7 @@ body {
 
 /* Main page flex layout */
 .page-container {
-  @apply min-h-screen bg-gray-900 flex flex-col px-4 py-6; /* Added padding to move content away from borders */
+  @apply min-h-screen bg-gray-900 flex flex-col px-4 py-2; /* Reduced py-6 to py-2 to move content even higher */
 }
 
 .modern-home {
@@ -51,7 +51,7 @@ body {
 }
 
 .main-content {
-  @apply flex flex-col lg:flex-row items-center justify-center gap-8 px-4 py-4 flex-1; /* Reduced py-8 to py-4 to move content even higher */
+  @apply flex flex-col lg:flex-row items-center justify-center gap-8 px-4 py-2 flex-1; /* Reduced py-4 to py-2 to move content even higher */
 }
 
 .hero-section {
@@ -63,7 +63,7 @@ body {
 }
 
 .hero-title {
-  @apply text-5xl md:text-6xl font-bold mb-6;
+  @apply text-5xl md:text-6xl font-bold mb-4; /* Reduced mb-6 to mb-4 to move content higher */
 }
 
 .hero-title-gradient {
@@ -71,7 +71,7 @@ body {
 }
 
 .hero-subtitle {
-  @apply text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto;
+  @apply text-xl md:text-2xl text-gray-300 mb-4 max-w-3xl mx-auto; /* Reduced mb-8 to mb-4 to move content higher */
 }
 
 .auth-section {

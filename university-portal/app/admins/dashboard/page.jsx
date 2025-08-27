@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { isAuthenticated, getUserRole, logout, getUserName, getUserEmailFromToken, getUserId } from "@/lib/auth";
+import { isAuthenticated, getUserRole, logout, getUserName, getUserId, getUserEmailFromToken } from "@/lib/auth";
 
 export default function AdminDashboard() {
   const router = useRouter();
